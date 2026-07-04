@@ -2,17 +2,18 @@ import feedparser
 import requests
 import os
 
-BOT_TOKEN = os.environ["8899055181:AAEhdPT-a0eJ6tpyl0IZo1TPqZgC7TRxa7U"]
-CHAT_ID = os.environ["472272097"]
+BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
+CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 RSS_URL = "https://news.google.com/rss/search?q=Ali+Karaçalı+OR+Ali+Karacalı+OR+Karaçalı+OR+Karacalı&hl=tr&gl=TR&ceid=TR:tr"
 
 KEYWORDS = [
     "Ali Karaçalı",
     "Ali Karacalı",
-    "Ali Karaçallı",
-    "Ali Karacallı",
-    
+    "A. Karaçalı",
+    "A. Karacalı",
+    "Karaçalı",
+    "Karacalı"
 ]
 
 SENT_FILE = "sent_links.txt"
