@@ -1,1 +1,60 @@
 print("Haber Takip Sistemi Başladı")
+import feedparser
+import requests
+import os
+
+BOT_TOKEN = os.environ["8899055181:AAEhdPT-a0eJ6tpyl0IZo1TPqZgC7TRxa7U"]
+CHAT_ID = os.environ["472272097"]
+
+RSS_URL = "https://news.google.com/rss/search?q=Ali+Karaçalı+OR+Ali+Karacalı+OR+Karaçalı+OR+Karacalı&hl=tr&gl=TR&ceid=TR:tr"
+
+KEYWORDS = [
+    "Ali Karaçalı",
+    "Ali Karacalı",
+    "Ali Karaçallı",
+    "Ali Karacallı",
+    
+]
+
+SENT_FILE = "sent_links.txt"
+
+if os.path.exists(SENT_FILE):
+    with open(SENT_FILE, "r", encoding="utf-8") as f:
+        sent = set(line.strip() for line in f)
+else:
+    sent = set()
+
+feed = feedparser.parse(RSS_URL)
+
+for item in feed.entries:
+    title = item.title
+    link = item.link
+    summary = getattr(item, "summary", "")
+
+    text = f"{title} {summary}"
+
+    if any(k.lower() in text.lower() for k in KEYWORDS):
+
+        if link in sent:
+            continue
+
+        message = f"""📰 Yeni Haber
+
+{title}
+
+{link}
+"""
+
+        requests.post(
+            f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+            data={
+                "chat_id": CHAT_ID,
+                "text": message
+            }
+        )
+
+        sent.add(link)
+
+with open(SENT_FILE, "w", encoding="utf-8") as f:
+    for i in sent:
+        f.write(i + "\n")
