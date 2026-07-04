@@ -1,4 +1,3 @@
-print("Haber Takip Sistemi Başladı")
 import feedparser
 import requests
 import os
