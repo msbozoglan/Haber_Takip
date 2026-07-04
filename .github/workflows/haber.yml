@@ -16,6 +16,16 @@ jobs:
         with:
           python-version: "3.11"
 
-      - run: pip install -r requirements.txt
+      - name: Install
+        run: pip install feedparser requests
 
-      - run: python haber_takip.py
+      - name: Run
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python haber_takip.py
+
+      - name: Save sent links
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update sent links
