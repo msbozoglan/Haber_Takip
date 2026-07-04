@@ -10,10 +10,8 @@ RSS_URL = "https://news.google.com/rss/search?q=Ali+Karaçalı+OR+Ali+Karacalı+
 KEYWORDS = [
     "Ali Karaçalı",
     "Ali Karacalı",
-    "A. Karaçalı",
-    "A. Karacalı",
-    "Karaçalı",
-    "Karacalı"
+    "Ali Karaçallı",
+    "Ali Karacallı",
 ]
 
 SENT_FILE = "sent_links.txt"
