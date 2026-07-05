@@ -59,13 +59,17 @@ message = f"""📰 Ali Karaçallı ile ilgili yeni haber bulundu
 {link}
 """
 
-        requests.post(
-            f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-            data={
-                "chat_id": CHAT_ID,
-                "text": message
-            }
-        )
+response = requests.post(
+    f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+    data={
+        "chat_id": CHAT_ID,
+        "text": message,
+        "disable_web_page_preview": False
+    },
+    timeout=30
+)
+
+print(response.status_code)
 
         sent.add(link)
 
