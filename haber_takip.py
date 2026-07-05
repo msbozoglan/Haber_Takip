@@ -16,6 +16,10 @@ KEYWORDS = [
     "Ali Karacalı",
     "Ali Karaçallı",
     "Ali Karacallı",
+    "Mehmet Tanrıöver", 
+    "Antalya Sgk",
+    "Antalya Sosyal Güvenlik İl Müdürlüğü", 
+    "Sgk Antalya", 
 ]
 
 SENT_FILE = "sent_links.txt"
