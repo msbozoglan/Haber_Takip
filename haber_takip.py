@@ -12,16 +12,8 @@ RSS_URL = (
     "+OR+Antalya+SGK+OR+%22Sosyal+G%C3%BCvenlik+Kurumu+Antalya%22+OR+Antalya"
     "&hl=tr&gl=TR&ceid=TR:tr"
 )
-KEYWORDS = [
-    "Ali Karaçalı",
-    "Ali Karacalı",
-    "Ali Karaçallı",
-    "Ali Karacallı",
-    "Mehmet Tanrıöver", 
-    "Antalya Sgk",
-    "Antalya Sosyal Güvenlik İl Müdürlüğü", 
-    "Sgk Antalya", 
-]
+with open("anahtarlar.json", "r", encoding="utf-8") as f:
+    KEYWORDS = json.load(f)
 
 SENT_FILE = "sent_links.txt"
 
