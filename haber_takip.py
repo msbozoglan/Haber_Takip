@@ -59,3 +59,10 @@ for item in feed.entries:
 with open(SENT_FILE, "w", encoding="utf-8") as f:
     for i in sent:
         f.write(i + "\n")
+requests.post(
+    f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+    data={
+        "chat_id": CHAT_ID,
+        "text": "✅ Haber takip sistemi başarıyla çalışıyor."
+    }
+)
