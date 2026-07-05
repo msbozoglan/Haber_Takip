@@ -75,7 +75,7 @@ message = f"""📰 Ali Karaçallı ile ilgili yeni haber
         data={
             "chat_id": CHAT_ID,
             "text": message,
-            "disable_web_page_preview": False,
+            "disable_web_page_preview": True,
         },
         timeout=30,
     )
