@@ -5,8 +5,11 @@ import os
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
-RSS_URL = "https://news.google.com/rss/search?q=Ali+Karaçalı+OR+Ali+Karacalı+OR+Karaçalı+OR+Karacalı&hl=tr&gl=TR&ceid=TR:tr"
-
+RSS_URL = (
+    "https://news.google.com/rss/search?"
+    "q=%22Ali+Kara%C3%A7al%C4%B1%22+OR+%22Ali+Karacal%C4%B1%22"
+    "&hl=tr&gl=TR&ceid=TR:tr"
+)
 KEYWORDS = [
     "Ali Karaçalı",
     "Ali Karacalı",
