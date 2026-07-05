@@ -61,7 +61,3 @@ with open(SENT_FILE, "w", encoding="utf-8") as f:
         f.write(i + "\n")
 
 
-if __name__ == "__main__":
-    print("Haber Takip Sistemi Başlatıldı")
-    haberleri_topla()
-    print("İşlem tamamlandı.")
