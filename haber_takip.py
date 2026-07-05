@@ -51,6 +51,7 @@ def eslesen_kelime(metin):
             return kelime
 
     return None
+    
     def haberleri_tara():
 
     yeni = 0
@@ -112,7 +113,7 @@ def eslesen_kelime(metin):
 🔗 Link:
 {link}
 """
-                                if telegram_gonder(mesaj):
+                    if telegram_gonder(mesaj):
 
                     print("Telegram gönderildi.")
 
