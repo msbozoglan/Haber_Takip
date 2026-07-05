@@ -6,12 +6,10 @@ import os
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
-RSS_URL = (
-    "https://news.google.com/rss/search?"
-    "q=%22Ali+Kara%C3%A7al%C4%B1%22+OR+%22Ali+Karacal%C4%B1%22+OR+%22Ali+Kara%C3%A7all%C4%B1%22+OR+%22Ali+Karacall%C4%B1%22"
-    "+OR+Antalya+SGK+OR+%22Sosyal+G%C3%BCvenlik+Kurumu+Antalya%22+OR+Antalya"
-    "&hl=tr&gl=TR&ceid=TR:tr"
-)
+with open("kaynaklar.json", "r", encoding="utf-8") as f:
+    kaynaklar = json.load(f)
+
+RSS_URL = kaynaklar["google"][0]["rss"]
 with open("anahtarlar.json", "r", encoding="utf-8") as f:
     KEYWORDS = json.load(f)
 
