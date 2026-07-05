@@ -1,1 +1,13 @@
-
+{
+  "ulusal": [
+    {
+      "isim": "TRT Haber",
+      "rss": "https://www.trthaber.com/sondakika_articles.rss"
+    },
+    {
+      "isim": "NTV",
+      "rss": "https://www.ntv.com.tr/son-dakika.rss"
+    }
+  ],
+  "yerel": []
+}
