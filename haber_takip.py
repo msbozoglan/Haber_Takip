@@ -7,24 +7,22 @@ BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 SENT_FILE = "sent_links.txt"
-ANAHTAR_DOSYA = "anahtarlar.json"
-KAYNAK_DOSYA = "kaynaklar.json"
 
 
-def oku_json(dosya):
+def json_oku(dosya):
     with open(dosya, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-KEYWORDS = oku_json(ANAHTAR_DOSYA)
-KAYNAKLAR = oku_json(KAYNAK_DOSYA)
+KEYWORDS = json_oku("anahtarlar.json")
+KAYNAKLAR = json_oku("kaynaklar.json")
 
 
 if os.path.exists(SENT_FILE):
     with open(SENT_FILE, "r", encoding="utf-8") as f:
-        sent = set(i.strip() for i in f if i.strip())
+        SENT = set(i.strip() for i in f if i.strip())
 else:
-    sent = set()
+    SENT = set()
 
 
 def telegram_gonder(mesaj):
@@ -34,31 +32,32 @@ def telegram_gonder(mesaj):
         data={
             "chat_id": CHAT_ID,
             "text": mesaj,
-            "disable_web_page_preview": True
+            "disable_web_page_preview": True,
         },
-        timeout=30
+        timeout=30,
     )
 
     return r.status_code == 200
 
 
-def eslesen_kelime(metin):
+def eslesen_kelime(text):
 
-    metin = metin.lower()
+    text = text.lower()
 
     for kelime in KEYWORDS:
-        if kelime.lower() in metin:
+
+        if kelime.lower() in text:
+
             return kelime
 
     return None
-    
-    def haberleri_tara():
+
+
+def haberleri_tara():
 
     yeni = 0
 
-    for grup_adi, grup in KAYNAKLAR.items():
-
-        print(f"\n=== {grup_adi.upper()} ===")
+    for grup in KAYNAKLAR.values():
 
         for kaynak in grup:
 
@@ -70,23 +69,26 @@ def eslesen_kelime(metin):
 
             except Exception as e:
 
-                print("RSS okunamadı:", e)
+                print(e)
 
                 continue
-
-            print(f"{len(feed.entries)} haber bulundu.")
 
             for item in feed.entries:
 
                 title = item.get("title", "")
-                link = item.get("link", "")
+
                 summary = item.get("summary", "")
+
+                link = item.get("link", "")
+
                 published = item.get("published", "Tarih belirtilmemiş")
 
                 if not link:
+
                     continue
 
-                if link in sent:
+                if link in SENT:
+
                     continue
 
                 text = f"{title} {summary}"
@@ -94,6 +96,7 @@ def eslesen_kelime(metin):
                 kelime = eslesen_kelime(text)
 
                 if not kelime:
+
                     continue
 
                 mesaj = f"""📰 Yeni Haber
@@ -113,11 +116,11 @@ def eslesen_kelime(metin):
 🔗 Link:
 {link}
 """
-                    if telegram_gonder(mesaj):
+                if telegram_gonder(mesaj):
 
-                    print("Telegram gönderildi.")
+                    print("Telegram'a gönderildi.")
 
-                    sent.add(link)
+                    SENT.add(link)
 
                     yeni += 1
 
@@ -127,19 +130,21 @@ def eslesen_kelime(metin):
 
     with open(SENT_FILE, "w", encoding="utf-8") as f:
 
-        for i in sorted(sent):
+        for link in sorted(SENT):
 
-            f.write(i + "\n")
+            f.write(link + "\n")
 
     print(f"\nToplam {yeni} yeni haber gönderildi.")
-    if __name__ == "__main__":
 
-    print("=" * 40)
+
+if __name__ == "__main__":
+
+    print("=" * 50)
     print("Haber Takip Sistemi Başlatıldı")
-    print("=" * 40)
+    print("=" * 50)
 
     haberleri_tara()
 
-    print("=" * 40)
+    print("=" * 50)
     print("İşlem tamamlandı.")
-    print("=" * 40)
+    print("=" * 50)
