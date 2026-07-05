@@ -59,5 +59,3 @@ for item in feed.entries:
 with open(SENT_FILE, "w", encoding="utf-8") as f:
     for i in sent:
         f.write(i + "\n")
-
-
