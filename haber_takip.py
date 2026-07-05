@@ -83,11 +83,13 @@ message = f"""📰 Ali Karaçallı ile ilgili yeni haber
     print("Telegram:", response.status_code)
 
     if response.status_code == 200:
-        sent.add(link)
+    sent.add(link)
+    new_count += 1
 
 # Gönderilen linkleri kaydet
 with open(SENT_FILE, "w", encoding="utf-8") as f:
     for link in sorted(sent):
         f.write(link + "\n")
 
+print(f"{new_count} yeni haber Telegram'a gönderildi.")
 print("İşlem tamamlandı.")
