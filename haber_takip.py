@@ -28,7 +28,7 @@ else:
     sent = set()
 
 print("Google Haberler kontrol ediliyor...")
-
+new_count = 0
 feed = feedparser.parse(RSS_URL)
 
 print(f"{len(feed.entries)} haber bulundu.")
