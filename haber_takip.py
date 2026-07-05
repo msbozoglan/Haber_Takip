@@ -55,9 +55,9 @@ for item in feed.entries:
     if link in sent:
         continue
 
-    message = f"""📰 Ali Karaçallı ile ilgili yeni haber bulundu
+message = f"""📰 Ali Karaçallı ile ilgili yeni haber
 
-📰 Başlık:
+📌 Başlık:
 {title}
 
 🌐 Kaynak:
@@ -66,7 +66,7 @@ for item in feed.entries:
 📅 Tarih:
 {published}
 
-🔗 Link:
+🔗 Haber:
 {link}
 """
 
