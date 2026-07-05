@@ -49,13 +49,15 @@ for item in feed.entries:
 
     text = f"{title} {summary}"
 
+    # keyword filtre
     if not any(k.lower() in text.lower() for k in KEYWORDS):
         continue
 
+    # daha önce gönderildiyse atla
     if link in sent:
         continue
 
-message = f"""📰 Ali Karaçallı ile ilgili yeni haber
+    message = f"""📰 Ali Karaçallı ile ilgili yeni haber
 
 📌 Başlık:
 {title}
@@ -83,8 +85,8 @@ message = f"""📰 Ali Karaçallı ile ilgili yeni haber
     print("Telegram:", response.status_code)
 
     if response.status_code == 200:
-    sent.add(link)
-    new_count += 1
+        sent.add(link)
+        new_count += 1
 
 # Gönderilen linkleri kaydet
 with open(SENT_FILE, "w", encoding="utf-8") as f:
