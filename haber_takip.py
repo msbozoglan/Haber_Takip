@@ -9,7 +9,11 @@ CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 with open("kaynaklar.json", "r", encoding="utf-8") as f:
     kaynaklar = json.load(f)
 
-RSS_URL = kaynaklar["google"][0]["rss"]
+RSS_LIST = []
+
+for grup in kaynaklar.values():
+    for kaynak in grup:
+        RSS_LIST.append(kaynak)
 with open("anahtarlar.json", "r", encoding="utf-8") as f:
     KEYWORDS = json.load(f)
 
