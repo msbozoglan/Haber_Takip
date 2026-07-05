@@ -40,10 +40,22 @@ for item in feed.entries:
         if link in sent:
             continue
 
-        message = f"""📰 Yeni Haber
+source = getattr(item, "source", {})
+source_name = source.get("title", "Google Haberler") if hasattr(source, "get") else "Google Haberler"
+published = getattr(item, "published", "Tarih bilinmiyor")
 
+message = f"""📰 Ali Karaçallı ile ilgili yeni haber bulundu
+
+📰 Başlık:
 {title}
 
+🌐 Kaynak:
+{source_name}
+
+📅 Tarih:
+{published}
+
+🔗 Link:
 {link}
 """
 
