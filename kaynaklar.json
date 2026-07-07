@@ -2,7 +2,7 @@
   "google": [
     {
       "isim": "Google Haberler",
-      "rss": "https://news.google.com/rss/search?q=Ali+Karaçallı+OR+Ali+Karaçalı+OR+Ali+Karacalı+OR+Mehmet+Tanrıöver+OR+Antalya+SGK&hl=tr&gl=TR&ceid=TR:tr"
+      "rss": "https://news.google.com/rss/search?q=%22Ali+Kara%C3%A7all%C4%B1%22+OR+%22Ali+Kara%C3%A7al%C4%B1%22+OR+%22Mehmet+Tanr%C4%B1%C3%B6ver%22+OR+%22Antalya+SGK%22&hl=tr&gl=TR&ceid=TR:tr"
     }
   ],
   "ulusal": [
@@ -13,6 +13,16 @@
     {
       "isim": "TRT Haber",
       "rss": "https://www.trthaber.com/sondakika_articles.rss"
+    }
+  ],
+  "yerel": [
+    {
+      "isim": "Antalya Körfez",
+      "rss": "https://www.antalyakorfez.com/rss"
+    },
+    {
+      "isim": "Antalya Gündem",
+      "rss": "https://www.antalyagundem.com.tr/rss"
     }
   ]
 }
