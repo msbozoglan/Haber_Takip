@@ -20,16 +20,21 @@ from urllib.parse import quote_plus
 
 def google_kaynaklari_olustur():
     kaynaklar = []
+
     for kelime in KEYWORDS:
+        sorgu = quote_plus(f'"{kelime}"')
+
         rss = (
             "https://news.google.com/rss/search?"
-            f"q={quote_plus('\"' + kelime + '\"')}"
+            f"q={sorgu}"
             "&hl=tr&gl=TR&ceid=TR:tr"
         )
+
         kaynaklar.append({
             "isim": f"Google Haberler ({kelime})",
             "rss": rss
         })
+
     return kaynaklar
 
 if os.path.exists(SENT_FILE):
