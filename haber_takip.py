@@ -194,7 +194,8 @@ mesaj = f"""📰 Yeni Haber
             f.write(title + "\n")
 
     print(f"\nToplam {yeni} yeni haber gönderildi.")
-    if __name__ == "__main__":
+
+if __name__ == "__main__":
 
     print("=" * 50)
     print("Haber Takip Sistemi Başlatıldı")
