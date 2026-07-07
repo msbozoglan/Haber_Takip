@@ -142,13 +142,13 @@ def haberleri_tara():
 
                 text = f"{title} {summary}"
 
-                kelime = eslesen_kelime(text)
+                                kelime = eslesen_kelime(text)
 
-        		print("Kontrol edilen haber:", title)
-				print("Metin:", text[:200])
+                print("Kontrol edilen haber:", title)
+                print("Metin:", text[:200])
 
-				if not kelime:
-				    continue
+                if not kelime:
+                    continue
 
                 mesaj = f"""📰 Yeni Haber
 
