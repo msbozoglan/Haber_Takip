@@ -58,7 +58,9 @@ if os.path.exists(TITLE_FILE):
         SENT_TITLES = set(i.strip().lower() for i in f if i.strip())
 else:
     SENT_TITLES = set()
-    def telegram_gonder(mesaj):
+
+
+def telegram_gonder(mesaj):
     r = requests.post(
         f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
         data={
@@ -73,7 +75,6 @@ else:
         print("Telegram Hatası:", r.text)
 
     return r.status_code == 200
-
 
 def eslesen_kelime(text):
     text = text.lower()
