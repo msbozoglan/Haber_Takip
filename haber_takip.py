@@ -144,8 +144,11 @@ def haberleri_tara():
 
                 kelime = eslesen_kelime(text)
 
-                if not kelime:
-                    continue
+        		print("Kontrol edilen haber:", title)
+				print("Metin:", text[:200])
+
+				if not kelime:
+				    continue
 
                 mesaj = f"""📰 Yeni Haber
 
