@@ -144,8 +144,10 @@ def haberleri_tara():
 
                 kelime = eslesen_kelime(text)
 
-                if not kelime:
-                    continue                mesaj = f"""📰 Yeni Haber
+if not kelime:
+    continue
+
+mesaj = f"""📰 Yeni Haber
 
 🎯 Eşleşme:
 {kelime}
