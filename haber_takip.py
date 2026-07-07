@@ -1,7 +1,9 @@
-from datetime import datetime, timedelta, timezone
-from email.utils import parsedate_to_datetime
 import os
 import json
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
+from urllib.parse import quote_plus
+
 import feedparser
 import requests
 
@@ -14,6 +16,7 @@ TITLE_FILE = "sent_titles.txt"
 MAX_HABER = 10
 MAX_YAS_SAAT = 24
 
+
 def json_oku(dosya):
     with open(dosya, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -21,7 +24,7 @@ def json_oku(dosya):
 
 KEYWORDS = json_oku("anahtarlar.json")
 KAYNAKLAR = json_oku("kaynaklar.json")
-from urllib.parse import quote_plus
+
 
 def google_kaynaklari_olustur():
     kaynaklar = []
@@ -42,19 +45,20 @@ def google_kaynaklari_olustur():
 
     return kaynaklar
 
+
 if os.path.exists(SENT_FILE):
     with open(SENT_FILE, "r", encoding="utf-8") as f:
         SENT = set(i.strip() for i in f if i.strip())
 else:
     SENT = set()
+
+
 if os.path.exists(TITLE_FILE):
     with open(TITLE_FILE, "r", encoding="utf-8") as f:
         SENT_TITLES = set(i.strip().lower() for i in f if i.strip())
 else:
     SENT_TITLES = set()
-
-def telegram_gonder(mesaj):
-
+    def telegram_gonder(mesaj):
     r = requests.post(
         f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
         data={
@@ -64,6 +68,9 @@ def telegram_gonder(mesaj):
         },
         timeout=30,
     )
+
+    if r.status_code != 200:
+        print("Telegram Hatası:", r.text)
 
     return r.status_code == 200
 
@@ -85,74 +92,57 @@ def haber_yeni_mi(published):
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
 
-        return datetime.now(timezone.utc) - dt <= timedelta(hours=MAX_YAS_SAAT)
+        return (
+            datetime.now(timezone.utc) - dt
+        ) <= timedelta(hours=MAX_YAS_SAAT)
 
     except Exception:
         return False
-    text = text.lower()
-
-    for kelime in KEYWORDS:
-
-        if kelime.lower() in text:
-
-            return kelime
-
-    return None
-
-
-tum_kaynaklar = {
-    **KAYNAKLAR,
-    "google_auto": google_kaynaklari_olustur()
-}
-def haberleri_tara():
-
+        def haberleri_tara():
     yeni = 0
+    gonderilen = 0
+
+    tum_kaynaklar = {
+        **KAYNAKLAR,
+        "google_auto": google_kaynaklari_olustur()
+    }
 
     for grup in tum_kaynaklar.values():
-
         for kaynak in grup:
 
             print("Kontrol:", kaynak["isim"])
 
             try:
-
                 feed = feedparser.parse(kaynak["rss"])
-
             except Exception as e:
-
-                print(e)
-
+                print("RSS Hatası:", e)
                 continue
 
             for item in feed.entries:
 
-                title = item.get("title", "")
+                title = item.get("title", "").strip()
+                summary = item.get("summary", "").strip()
+                link = item.get("link", "").strip()
+                published = item.get("published", "")
 
-                summary = item.get("summary", "")
-
-                link = item.get("link", "")
-
-                published = item.get("published", "Tarih belirtilmemiş")
-if not haber_yeni_mi(published):
-    continue
                 if not link:
-
                     continue
 
                 if link in SENT:
-
                     continue
-if title.lower() in SENT_TITLES:
-    continue
+
+                if title.lower() in SENT_TITLES:
+                    continue
+
+                if not haber_yeni_mi(published):
+                    continue
+
                 text = f"{title} {summary}"
 
                 kelime = eslesen_kelime(text)
 
                 if not kelime:
-
-                    continue
-
-                mesaj = f"""📰 Yeni Haber
+                    continue                mesaj = f"""📰 Yeni Haber
 
 🎯 Eşleşme:
 {kelime}
@@ -169,42 +159,44 @@ if title.lower() in SENT_TITLES:
 🔗 Link:
 {link}
 """
-                if telegram_gonder(mesaj):
 
+                if telegram_gonder(mesaj):
                     print("Telegram'a gönderildi.")
 
                     SENT.add(link)
-SENT_TITLES.add(title.lower())
+                    SENT_TITLES.add(title.lower())
 
-yeni += 1
-gonderilen += 1
+                    yeni += 1
+                    gonderilen += 1
 
-if gonderilen >= MAX_HABER:
-    break
-
+                    if gonderilen >= MAX_HABER:
+                        break
                 else:
-
                     print("Telegram gönderilemedi.")
 
-    with open(SENT_FILE, "w", encoding="utf-8") as f:
-with open(TITLE_FILE, "w", encoding="utf-8") as f:
-    for title in sorted(SENT_TITLES):
-        f.write(title + "\n")
-        for link in sorted(SENT):
+            if gonderilen >= MAX_HABER:
+                break
 
+        if gonderilen >= MAX_HABER:
+            break
+
+    with open(SENT_FILE, "w", encoding="utf-8") as f:
+        for link in sorted(SENT):
             f.write(link + "\n")
 
+    with open(TITLE_FILE, "w", encoding="utf-8") as f:
+        for title in sorted(SENT_TITLES):
+            f.write(title + "\n")
+
     print(f"\nToplam {yeni} yeni haber gönderildi.")
-
-
-if __name__ == "__main__":
+    if __name__ == "__main__":
 
     print("=" * 50)
     print("Haber Takip Sistemi Başlatıldı")
     print("=" * 50)
 
     haberleri_tara()
-gonderilen = 0
+
     print("=" * 50)
     print("İşlem tamamlandı.")
     print("=" * 50)
