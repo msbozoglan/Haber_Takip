@@ -99,7 +99,9 @@ def haber_yeni_mi(published):
 
     except Exception:
         return False
-        def haberleri_tara():
+
+
+def haberleri_tara():
     yeni = 0
     gonderilen = 0
 
