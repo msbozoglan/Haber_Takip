@@ -16,7 +16,21 @@ def json_oku(dosya):
 
 KEYWORDS = json_oku("anahtarlar.json")
 KAYNAKLAR = json_oku("kaynaklar.json")
+from urllib.parse import quote_plus
 
+def google_kaynaklari_olustur():
+    kaynaklar = []
+    for kelime in KEYWORDS:
+        rss = (
+            "https://news.google.com/rss/search?"
+            f"q={quote_plus('\"' + kelime + '\"')}"
+            "&hl=tr&gl=TR&ceid=TR:tr"
+        )
+        kaynaklar.append({
+            "isim": f"Google Haberler ({kelime})",
+            "rss": rss
+        })
+    return kaynaklar
 
 if os.path.exists(SENT_FILE):
     with open(SENT_FILE, "r", encoding="utf-8") as f:
