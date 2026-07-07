@@ -69,6 +69,15 @@ def telegram_gonder(mesaj):
 
 
 def eslesen_kelime(text):
+    text = text.lower()
+
+    for kelime in KEYWORDS:
+        if kelime.lower() in text:
+            return kelime
+
+    return None
+
+
 def haber_yeni_mi(published):
     try:
         dt = parsedate_to_datetime(published)
@@ -124,7 +133,8 @@ def haberleri_tara():
                 link = item.get("link", "")
 
                 published = item.get("published", "Tarih belirtilmemiş")
-
+if not haber_yeni_mi(published):
+    continue
                 if not link:
 
                     continue
@@ -132,7 +142,8 @@ def haberleri_tara():
                 if link in SENT:
 
                     continue
-
+if title.lower() in SENT_TITLES:
+    continue
                 text = f"{title} {summary}"
 
                 kelime = eslesen_kelime(text)
@@ -163,15 +174,22 @@ def haberleri_tara():
                     print("Telegram'a gönderildi.")
 
                     SENT.add(link)
+SENT_TITLES.add(title.lower())
 
-                    yeni += 1
+yeni += 1
+gonderilen += 1
+
+if gonderilen >= MAX_HABER:
+    break
 
                 else:
 
                     print("Telegram gönderilemedi.")
 
     with open(SENT_FILE, "w", encoding="utf-8") as f:
-
+with open(TITLE_FILE, "w", encoding="utf-8") as f:
+    for title in sorted(SENT_TITLES):
+        f.write(title + "\n")
         for link in sorted(SENT):
 
             f.write(link + "\n")
@@ -186,7 +204,7 @@ if __name__ == "__main__":
     print("=" * 50)
 
     haberleri_tara()
-
+gonderilen = 0
     print("=" * 50)
     print("İşlem tamamlandı.")
     print("=" * 50)
