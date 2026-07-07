@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 import os
 import json
 import feedparser
@@ -7,7 +9,10 @@ BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 SENT_FILE = "sent_links.txt"
+TITLE_FILE = "sent_titles.txt"
 
+MAX_HABER = 10
+MAX_YAS_SAAT = 24
 
 def json_oku(dosya):
     with open(dosya, "r", encoding="utf-8") as f:
@@ -42,7 +47,11 @@ if os.path.exists(SENT_FILE):
         SENT = set(i.strip() for i in f if i.strip())
 else:
     SENT = set()
-
+if os.path.exists(TITLE_FILE):
+    with open(TITLE_FILE, "r", encoding="utf-8") as f:
+        SENT_TITLES = set(i.strip().lower() for i in f if i.strip())
+else:
+    SENT_TITLES = set()
 
 def telegram_gonder(mesaj):
 
@@ -60,7 +69,17 @@ def telegram_gonder(mesaj):
 
 
 def eslesen_kelime(text):
+def haber_yeni_mi(published):
+    try:
+        dt = parsedate_to_datetime(published)
 
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+
+        return datetime.now(timezone.utc) - dt <= timedelta(hours=MAX_YAS_SAAT)
+
+    except Exception:
+        return False
     text = text.lower()
 
     for kelime in KEYWORDS:
