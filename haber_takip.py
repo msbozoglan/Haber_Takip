@@ -67,11 +67,15 @@ def eslesen_kelime(text):
     return None
 
 
+tum_kaynaklar = {
+    **KAYNAKLAR,
+    "google_auto": google_kaynaklari_olustur()
+}
 def haberleri_tara():
 
     yeni = 0
 
-    for grup in KAYNAKLAR.values():
+    for grup in tum_kaynaklar.values():
 
         for kaynak in grup:
 
