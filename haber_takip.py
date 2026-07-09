@@ -76,11 +76,29 @@ def telegram_gonder(mesaj):
 
     return r.status_code == 200
 
+def temizle(metin):
+    metin = metin.lower()
+
+    degisim = {
+        "ç": "c",
+        "ğ": "g",
+        "ı": "i",
+        "ö": "o",
+        "ş": "s",
+        "ü": "u"
+    }
+
+    for eski, yeni in degisim.items():
+        metin = metin.replace(eski, yeni)
+
+    return metin
+
+
 def eslesen_kelime(text):
-    text = text.lower()
+    text = temizle(text)
 
     for kelime in KEYWORDS:
-        if kelime.lower() in text:
+        if temizle(kelime) in text:
             return kelime
 
     return None
