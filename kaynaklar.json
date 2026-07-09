@@ -16,13 +16,32 @@
     }
   ],
   "yerel": [
-    {
-      "isim": "Antalya Körfez",
-      "rss": "https://www.antalyakorfez.com/rss"
-    },
-    {
-      "isim": "Antalya Gündem",
-      "rss": "https://www.antalyagundem.com.tr/rss"
-    }
-  ]
-}
+  {
+    "isim": "Antalya Körfez",
+    "rss": "https://www.antalyakorfez.com/rss"
+  },
+  {
+    "isim": "Antalya Gündem",
+    "rss": "https://www.antalyagundem.com.tr/rss"
+  },
+  {
+    "isim": "Antalya Hürses",
+    "rss": "https://www.antalyahurses.com/rss.xml"
+  },
+  {
+    "isim": "Akdeniz Gerçek",
+    "rss": "https://www.akdenizgercek.com.tr/rss"
+  },
+  {
+    "isim": "Antalya Son Haber",
+    "rss": "https://www.antalyasonhaber.com/rss"
+  },
+  {
+    "isim": "Lider Gazete",
+    "rss": "https://www.lidergazete.com/rss"
+  },
+  {
+    "isim": "Yeni Alanya",
+    "rss": "https://www.yenialanya.com/rss.xml"
+  }
+]
