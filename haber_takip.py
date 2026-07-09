@@ -116,10 +116,11 @@ def haberleri_tara():
             print("Kontrol:", kaynak["isim"])
 
             try:
-                feed = feedparser.parse(kaynak["rss"])
-            except Exception as e:
-                print("RSS Hatası:", e)
-                continue
+    feed = feedparser.parse(kaynak["rss"])
+    print("RSS Haber Sayısı:", len(feed.entries))
+except Exception as e:
+    print("RSS Hatası:", e)
+    continue
 
             for item in feed.entries:
 
