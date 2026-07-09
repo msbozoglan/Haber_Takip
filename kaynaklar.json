@@ -43,6 +43,26 @@
   {
     "isim": "Yeni Alanya",
     "rss": "https://www.yenialanya.com/rss.xml"
-  }
+  },
+{
+  "isim": "Antalya Ekspres",
+  "rss": "https://www.antalyaekspres.com.tr/rss"
+},
+{
+  "isim": "Antalya Hakkında",
+  "rss": "https://www.antalyahakkinda.com/rss"
+},
+{
+  "isim": "Gün Haber",
+  "rss": "https://www.gunhaber.com.tr/rss.xml"
+},
+{
+  "isim": "Antalya Bülten",
+  "rss": "https://www.antalyabulten.com/rss"
+},
+{
+  "isim": "Antalyam",
+  "rss": "https://www.antalyam.com/rss"
+}  
 ]
 } 
