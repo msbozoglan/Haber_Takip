@@ -151,12 +151,15 @@ def haberleri_tara():
                     continue
 
                 if link in SENT:
+                    print("⛔ Daha önce gönderilmiş link:", title)
                     continue
 
                 if title.lower() in SENT_TITLES:
+                    print("⛔ Daha önce gönderilmiş başlık:", title)
                     continue
 
                 if not haber_yeni_mi(published):
+                    print("⛔ Eski haber:", title)
                     continue
 
                 text = f"{title} {summary}"
