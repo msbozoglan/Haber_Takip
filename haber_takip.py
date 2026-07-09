@@ -140,8 +140,8 @@ def haberleri_tara():
                 print("RSS Hatası:", e)
                 continue
 
-            for item in feed.entries:
-
+            for item in feed.entries[:50]:
+                
                 title = item.get("title", "").strip()
                 summary = item.get("summary", "").strip()
                 link = item.get("link", "").strip()
