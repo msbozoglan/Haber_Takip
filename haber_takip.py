@@ -172,21 +172,24 @@ def haberleri_tara():
                 if not kelime:
                     continue
 
-                mesaj = f"""📰 Yeni Haber
+                mesaj = f"""📰 YENİ HABER
 
-🎯 Eşleşme:
+👤 Anahtar Kelime:
 {kelime}
 
-📌 Başlık:
+📰 Başlık:
 {title}
 
-🌐 Kaynak:
+🏢 Kaynak:
 {kaynak["isim"]}
 
 📅 Tarih:
 {published}
 
-🔗 Link:
+📝 Açıklama:
+{summary[:300]}
+
+🔗 Haber Linki:
 {link}
 """
 
