@@ -163,8 +163,8 @@ def haberleri_tara():
 
                 kelime = eslesen_kelime(text)
 
-                print("Kontrol edilen haber:", title)
-                print("Metin:", text[:200])
+                if kelime:
+                    print(f"✅ Eşleşme bulundu: {kelime}")
 
                 if not kelime:
                     continue
