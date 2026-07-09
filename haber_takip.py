@@ -13,8 +13,8 @@ CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 SENT_FILE = "sent_links.txt"
 TITLE_FILE = "sent_titles.txt"
 
-MAX_HABER = 10
-MAX_YAS_SAAT = 24
+MAX_HABER = 20
+MAX_YAS_SAAT = 72
 
 
 def json_oku(dosya):
