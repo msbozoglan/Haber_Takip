@@ -1,6 +1,6 @@
 feedparser
 requests
 beautifulsoup4
-openai
 lxml
 python-dateutil
+openai
