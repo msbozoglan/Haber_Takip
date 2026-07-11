@@ -43,6 +43,18 @@ def google_kaynaklari_olustur():
         }
     ]
 
+if os.path.exists(SENT_FILE):
+    with open(SENT_FILE, "r", encoding="utf-8") as f:
+        SENT = set(i.strip() for i in f if i.strip())
+else:
+    SENT = set()
+
+if os.path.exists(TITLE_FILE):
+    with open(TITLE_FILE, "r", encoding="utf-8") as f:
+        SENT_TITLES = set(i.strip().lower() for i in f if i.strip())
+else:
+    SENT_TITLES = set()
+
 
 def telegram_gonder(mesaj):
     r = requests.post(
