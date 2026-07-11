@@ -27,37 +27,21 @@ KAYNAKLAR = json_oku("kaynaklar.json")
 
 
 def google_kaynaklari_olustur():
-    kaynaklar = []
 
-    for kelime in KEYWORDS:
-        sorgu = quote_plus(f'"{kelime}"')
+    sorgu = " OR ".join([f'"{k}"' for k in KEYWORDS])
 
-        rss = (
-            "https://news.google.com/rss/search?"
-            f"q={sorgu}"
-            "&hl=tr&gl=TR&ceid=TR:tr"
-        )
+    rss = (
+        "https://news.google.com/rss/search?"
+        f"q={quote_plus(sorgu)}"
+        "&hl=tr&gl=TR&ceid=TR:tr"
+    )
 
-        kaynaklar.append({
-            "isim": f"Google Haberler ({kelime})",
+    return [
+        {
+            "isim": "Google Haberler",
             "rss": rss
-        })
-
-    return kaynaklar
-
-
-if os.path.exists(SENT_FILE):
-    with open(SENT_FILE, "r", encoding="utf-8") as f:
-        SENT = set(i.strip() for i in f if i.strip())
-else:
-    SENT = set()
-
-
-if os.path.exists(TITLE_FILE):
-    with open(TITLE_FILE, "r", encoding="utf-8") as f:
-        SENT_TITLES = set(i.strip().lower() for i in f if i.strip())
-else:
-    SENT_TITLES = set()
+        }
+    ]
 
 
 def telegram_gonder(mesaj):
