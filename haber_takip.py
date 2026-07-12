@@ -64,7 +64,7 @@ def telegram_gonder(mesaj):
             "text": mesaj,
             "disable_web_page_preview": True,
         },
-        timeout=30,
+        timeout=15,
     )
 
     if r.status_code != 200:
