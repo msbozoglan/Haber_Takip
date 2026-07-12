@@ -136,7 +136,9 @@ def haberleri_tara():
                 print("RSS Hatası:", e)
                 continue
 
-            for item in feed.entries[:50]:
+            LIMIT = 20 if "Google" in kaynak["isim"] else 15
+
+            for item in feed.entries[:LIMIT]:
                 
                 title = item.get("title", "").strip()
                 summary = item.get("summary", "").strip()
