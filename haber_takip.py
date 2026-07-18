@@ -28,21 +28,22 @@ KAYNAKLAR = json_oku("kaynaklar.json")
 
 
 def google_kaynaklari_olustur():
+    kaynaklar = []
 
-    sorgu = " OR ".join([f'"{k}"' for k in KEYWORDS])
+    for kelime in KEYWORDS:
 
-    rss = (
-        "https://news.google.com/rss/search?"
-        f"q={quote_plus(sorgu)}"
-        "&hl=tr&gl=TR&ceid=TR:tr"
-    )
+        rss = (
+            "https://news.google.com/rss/search?"
+            f"q={quote_plus(f'\"{kelime}\"')}"
+            "&hl=tr&gl=TR&ceid=TR:tr"
+        )
 
-    return [
-        {
-            "isim": "Google Haberler",
+        kaynaklar.append({
+            "isim": f"Google Haberler ({kelime})",
             "rss": rss
-        }
-    ]
+        })
+
+    return kaynaklar
 
 if os.path.exists(SENT_FILE):
     with open(SENT_FILE, "r", encoding="utf-8") as f:
