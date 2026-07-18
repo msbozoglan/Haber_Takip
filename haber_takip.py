@@ -125,7 +125,7 @@ def web_sitesi_tara(isim, url):
             baslik = a.get("title", "").strip()
 
             if not baslik:
-    baslik = a.get_text(" ", strip=True)
+                baslik = a.get_text(" ", strip=True)
 
             if len(baslik) < 15:
                 continue
