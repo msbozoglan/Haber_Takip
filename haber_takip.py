@@ -29,37 +29,24 @@ KAYNAKLAR = json_oku("kaynaklar.json")
 
 def google_kaynaklari_olustur():
 
-    gruplar = [
-        [
-            "Ali Karaçallı",
-            "Ali Karaçalı",
-            "Ali Karacalı",
-            "Ali Karacallı"
-        ],
-        [
-            "Mehmet Tanrıöver",
-            "Mehmet Tanriover",
-            "Antalya SGK",
-            "SGK Antalya"
-        ],
-        [
-            "Antalya Sosyal Güvenlik İl Müdürlüğü",
-            "Sosyal Güvenlik Kurumu Antalya",
-            "Antalya Sosyal Güvenlik",
-            "Antalya SGK İl Müdürlüğü"
-        ],
-        [
-            "kamu borcu",
-            "sgk borcu",
-            "belediye borcu"
-        ]
-    ]
-
     kaynaklar = []
 
-    for i, grup in enumerate(gruplar, 1):
+    siteler = [
+        "lidergazete.com",
+        "antalyakorfez.com",
+        "antalyahakkinda.com",
+        "antalyaekspres.com.tr",
+        "gunhaber.com.tr",
+        "antalyabulten.com",
+        "antalyasonhaber.com",
+        "akdenizgercek.com.tr",
+        "yenialanya.com"
+    ]
 
-        sorgu = " OR ".join([f'"{k}"' for k in grup])
+    for site in siteler:
+
+        sorgu = " OR ".join([f'"{k}"' for k in KEYWORDS])
+        sorgu = f"site:{site} ({sorgu})"
 
         rss = (
             "https://news.google.com/rss/search?"
@@ -68,7 +55,7 @@ def google_kaynaklari_olustur():
         )
 
         kaynaklar.append({
-            "isim": f"Google Haberler {i}",
+            "isim": f"Google {site}",
             "rss": rss
         })
 
