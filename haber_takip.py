@@ -122,13 +122,15 @@ def web_sitesi_tara(isim, url):
 
         for a in haberler:
 
-            baslik = a.get_text(" ", strip=True)
+            baslik = a.get("title", "").strip()
+
+            if not baslik:
+    baslik = a.get_text(" ", strip=True)
 
             if len(baslik) < 15:
                 continue
 
-            link = urljoin(url, a["href"])
-
+            link = urljoin("https://www.lidergazete.com", a["href"])
             if link in SENT:
                 continue
 
