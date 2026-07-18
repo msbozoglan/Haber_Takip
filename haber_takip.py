@@ -32,9 +32,11 @@ def google_kaynaklari_olustur():
 
     for kelime in KEYWORDS:
 
+        sorgu = quote_plus(f'"{kelime}"')
+
         rss = (
             "https://news.google.com/rss/search?"
-            f"q={quote_plus(f'\"{kelime}\"')}"
+            f"q={sorgu}"
             "&hl=tr&gl=TR&ceid=TR:tr"
         )
 
