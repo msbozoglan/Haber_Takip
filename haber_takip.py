@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import requests
 import feedparser
 import requests
+from bs4 import BeautifulSoup
 
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
