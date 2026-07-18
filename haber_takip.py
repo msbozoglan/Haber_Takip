@@ -118,7 +118,9 @@ def web_sitesi_tara(isim, url):
 
         bulunan = 0
 
-        for a in soup.find_all("a", href=True):
+        haberler = soup.select("a[href*='/antalya-gunlugu/']")
+
+        for a in haberler:
 
             baslik = a.get_text(" ", strip=True)
 
