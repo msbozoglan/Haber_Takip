@@ -303,11 +303,6 @@ if __name__ == "__main__":
 
     haberleri_tara()
 
-    web_sitesi_tara(
-    "Lider Gazete",
-    "https://www.lidergazete.com/antalya-gunlugu"
-)
-
     print("=" * 50)
     print("İşlem tamamlandı.")
     print("=" * 50)
