@@ -2,10 +2,8 @@ import os
 import json
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urljoin
 
-from bs4 import BeautifulSoup
-import requests
 import feedparser
 import requests
 from bs4 import BeautifulSoup
