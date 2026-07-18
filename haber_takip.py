@@ -73,6 +73,58 @@ def telegram_gonder(mesaj):
 
     return r.status_code == 200
 
+def web_sitesi_tara(isim, url):
+
+    print(f"Web kontrol: {isim}")
+
+    try:
+        r = requests.get(
+            url,
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=15
+        )
+
+        soup = BeautifulSoup(r.text, "lxml")
+
+        bulunan = 0
+
+        for a in soup.find_all("a", href=True):
+
+            baslik = a.get_text(" ", strip=True)
+
+            if len(baslik) < 15:
+                continue
+
+            link = urljoin(url, a["href"])
+
+            if link in SENT:
+                continue
+
+            kelime = eslesen_kelime(baslik)
+
+            if not kelime:
+                continue
+
+            mesaj = f"""📰 WEB HABERİ
+
+🎯 {kelime}
+
+📰 {baslik}
+
+🌐 {isim}
+
+🔗 {link}
+"""
+
+            if telegram_gonder(mesaj):
+                SENT.add(link)
+                bulunan += 1
+
+        print(f"{isim}: {bulunan} web haberi bulundu")
+
+    except Exception as e:
+        print(f"{isim} web hatası:", e)
+
 def temizle(metin):
     metin = metin.lower()
 
