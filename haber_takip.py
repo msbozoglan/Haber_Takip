@@ -4,6 +4,8 @@ from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from urllib.parse import quote_plus
 
+from bs4 import BeautifulSoup
+import requests
 import feedparser
 import requests
 
