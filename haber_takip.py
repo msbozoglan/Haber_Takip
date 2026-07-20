@@ -297,7 +297,17 @@ def haberleri_tara():
     with open(TITLE_FILE, "w", encoding="utf-8") as f:
         for title in sorted(SENT_TITLES):
             f.write(title + "\n")
+print("\nWeb siteleri taranıyor...\n")
 
+web_sitesi_tara("Lider Gazete", "https://www.lidergazete.com")
+web_sitesi_tara("Yeni Alanya", "https://www.yenialanya.com")
+web_sitesi_tara("Ajansspor", "https://ajansspor.com")
+web_sitesi_tara("Antalya Körfez", "https://www.antalyakorfez.com")
+web_sitesi_tara("Antalya Ekspres", "https://www.antalyaekspres.com.tr")
+web_sitesi_tara("Akdeniz Gerçek", "https://www.akdenizgercek.com.tr")
+web_sitesi_tara("Gün Haber", "https://www.gunhaber.com.tr")
+web_sitesi_tara("Antalya Hakkında", "https://www.antalyahakkinda.com")
+    
     print(f"\nToplam {yeni} yeni haber gönderildi.")
 
 if __name__ == "__main__":
