@@ -165,6 +165,7 @@ def web_sitesi_tara(isim, url):
 """
 
                 if telegram_gonder(mesaj):
+                    print("Telegram'a gönderildi:", baslik)
                     SENT.add(link)
                     bulunan += 1
 
