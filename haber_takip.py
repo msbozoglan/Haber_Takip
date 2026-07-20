@@ -105,7 +105,7 @@ def web_sitesi_tara(isim, url):
 
         bulunan = 0
 
-        haberler = soup.select("a[href*='/antalya-gunlugu/']")
+        haberler = soup.select("a[href]")
 
         for a in haberler:
 
