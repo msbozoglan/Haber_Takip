@@ -91,6 +91,7 @@ def telegram_gonder(mesaj):
     return r.status_code == 200
 
 def web_sitesi_tara(isim, url):
+    global yeni
 
     print(f"Web kontrol: {isim}")
 
@@ -165,6 +166,7 @@ def web_sitesi_tara(isim, url):
 """
 
                 if telegram_gonder(mesaj):
+                    yeni += 1
                     print("Telegram'a gönderildi:", baslik)
                     SENT.add(link)
                     bulunan += 1
