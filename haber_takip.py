@@ -147,7 +147,7 @@ def web_sitesi_tara(isim, url):
                 else:
                     baslik = ""
 
-                metin = baslik 
+                metin = baslik + " " + s.get_text(" ", strip=True)[:4000] 
 
                 kelime = eslesen_kelime(metin)
 
