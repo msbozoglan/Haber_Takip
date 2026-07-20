@@ -127,7 +127,7 @@ def web_sitesi_tara(isim, url):
             ]):
                 linkler.add(href)
 
-        for link in list(linkler)[:60]:
+        for link in list(linkler)[:300]:
 
             if link in SENT:
                 continue
