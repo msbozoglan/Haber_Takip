@@ -98,46 +98,62 @@ def web_sitesi_tara(isim, url):
         r = requests.get(
             url,
             headers={"User-Agent": "Mozilla/5.0"},
-            timeout=15
+            timeout=20
         )
 
-        soup = BeautifulSoup(r.text, "lxml")
+        soup = BeautifulSoup(r.text, "html.parser")
 
         bulunan = 0
 
-        haberler = soup.select("a[href]")
+        linkler = set()
 
-        for a in haberler:
+        for a in soup.find_all("a", href=True):
 
-            href = a.get("href", "")
+            href = a["href"]
 
-            if not href:
+            if href.startswith("/"):
+                href = urljoin(url, href)
+
+            if not href.startswith("http"):
                 continue
 
-            link = urljoin(url, href)
+            if any(x in href.lower() for x in [
+                "/haber/",
+                "/makale/",
+                "/antalya-gunlugu/",
+                "/spor/",
+                "/gundem/",
+                "/ekonomi/"
+            ]):
+                linkler.add(href)
 
-            if (
-                "/haber/" not in link
-                and "/makale/" not in link
-                and "/antalya-gunlugu/" not in link
-            ):
-                continue 
-            baslik = a.get("title", "").strip()
+        for link in list(linkler)[:60]:
 
-            if not baslik:
-                baslik = a.get_text(" ", strip=True)
-
-            if len(baslik) < 10:
-                continue
             if link in SENT:
                 continue
 
-            kelime = eslesen_kelime(baslik)
+            try:
+                sayfa = requests.get(
+                    link,
+                    headers={"User-Agent":"Mozilla/5.0"},
+                    timeout=15
+                )
 
-            if not kelime:
-                continue
+                s = BeautifulSoup(sayfa.text,"html.parser")
 
-            mesaj = f"""📰 WEB HABERİ
+                if s.title:
+                    baslik = s.title.get_text(" ", strip=True)
+                else:
+                    baslik = ""
+
+                metin = baslik + " " + s.get_text(" ", strip=True)[:4000]
+
+                kelime = eslesen_kelime(metin)
+
+                if not kelime:
+                    continue
+
+                mesaj=f"""📰 WEB HABERİ
 
 🎯 {kelime}
 
@@ -148,14 +164,17 @@ def web_sitesi_tara(isim, url):
 🔗 {link}
 """
 
-            if telegram_gonder(mesaj):
-                SENT.add(link)
-                bulunan += 1
+                if telegram_gonder(mesaj):
+                    SENT.add(link)
+                    bulunan += 1
+
+            except Exception:
+                pass
 
         print(f"{isim}: {bulunan} web haberi bulundu")
 
     except Exception as e:
-        print(f"{isim} web hatası:", e)
+        print(e)
 
 def temizle(metin):
     metin = metin.lower()
