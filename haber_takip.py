@@ -116,6 +116,12 @@ def web_sitesi_tara(isim, url):
 
             link = urljoin(url, href)
 
+            if (
+                "/haber/" not in link
+                and "/makale/" not in link
+                and "/antalya-gunlugu/" not in link
+            ):
+                continue 
             baslik = a.get("title", "").strip()
 
             if not baslik:
