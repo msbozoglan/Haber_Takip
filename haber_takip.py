@@ -348,6 +348,11 @@ def haberleri_tara():
     web_sitesi_tara("Akdeniz Gerçek", "https://www.akdenizgercek.com.tr")
     web_sitesi_tara("Gün Haber", "https://www.gunhaber.com.tr")
     web_sitesi_tara("Antalya Hakkında", "https://www.antalyahakkinda.com")
+    web_sitesi_tara("Antalya Son Haber", "https://www.antalyasonhaber.com")
+    web_sitesi_tara("Antalya Gündem", "https://www.antalyagundem.com")
+    web_sitesi_tara("Antalya Hürses", "https://www.antalyahurses.com")
+    web_sitesi_tara("Antalya Bülten", "https://www.antalyabulten.com")
+    web_sitesi_tara("Antalyam", "https://www.antalyam.com")
     
     print(f"\nToplam {yeni} yeni haber gönderildi.")
 
