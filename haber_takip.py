@@ -165,10 +165,14 @@ def web_sitesi_tara(isim, url):
 🔗 {link}
 """
 
+                if baslik.lower() in SENT_TITLES:
+                    continue
+
                 if telegram_gonder(mesaj):
                     yeni += 1
                     print("Telegram'a gönderildi:", baslik)
                     SENT.add(link)
+                    SENT_TITLES.add(baslik.lower())
                     bulunan += 1
 
             except Exception:
