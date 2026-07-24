@@ -15,7 +15,7 @@ SENT_FILE = "sent_links.txt"
 TITLE_FILE = "sent_titles.txt"
 
 MAX_HABER = 20
-MAX_YAS_SAAT = 720
+MAX_YAS_SAAT = 72
 
 
 def json_oku(dosya):
@@ -199,7 +199,14 @@ def temizle(metin):
         metin = metin.replace(eski, yeni)
 
     return metin
+    
+    import re
 
+def haber_anahtari(baslik):
+    baslik = temizle(baslik)
+    baslik = re.sub(r'[^a-z0-9 ]', ' ', baslik)
+    baslik = re.sub(r'\s+', ' ', baslik).strip()
+    return baslik
 
 def eslesen_kelime(text):
     text = temizle(text)
@@ -263,8 +270,7 @@ def haberleri_tara():
                     print("⛔ Daha önce gönderilmiş link:", title)
                     continue
 
-                if title.lower() in SENT_TITLES:
-                    print("⛔ Daha önce gönderilmiş başlık:", title)
+                if haber_anahtari(title) in SENT_TITLES:
                     continue
 
                 if not haber_yeni_mi(published):
@@ -301,12 +307,14 @@ def haberleri_tara():
 🔗 Haber Linki:
 {link}
 """
-
+                if haber_anahtari(baslik) in SENT_TITLES:
+                    continue 
+    
                 if telegram_gonder(mesaj):
                     print("Telegram'a gönderildi.")
 
                     SENT.add(link)
-                    SENT_TITLES.add(title.lower())
+                    SENT_TITLES.add(haber_anahtari(title))
 
                     yeni += 1
                     gonderilen += 1
