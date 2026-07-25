@@ -148,7 +148,12 @@ def web_sitesi_tara(isim, url):
                 else:
                     baslik = ""
 
-                metin = baslik + " " + s.get_text(" ", strip=True)[:4000] 
+                aciklama = ""
+
+                if s.find("meta", attrs={"name": "description"}):
+                    aciklama = s.find("meta", attrs={"name": "description"}).get("content", "")
+
+                metin = baslik + " " + aciklama 
 
                 kelime = eslesen_kelime(metin)
 
