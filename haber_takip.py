@@ -166,14 +166,14 @@ def web_sitesi_tara(isim, url):
 🔗 {link}
 """
 
-                if baslik.lower() in SENT_TITLES:
+                if haber_anahtari(baslik) in SENT_TITLES:
                     continue
 
                 if telegram_gonder(mesaj):
                     yeni += 1
                     print("Telegram'a gönderildi:", baslik)
                     SENT.add(link)
-                    SENT_TITLES.add(baslik.lower())
+                    SENT_TITLES.add(haber_anahtari(baslik))
                     bulunan += 1
 
             except Exception:
@@ -200,8 +200,6 @@ def temizle(metin):
         metin = metin.replace(eski, yeni)
 
     return metin
-    
-    import re
 
 def haber_anahtari(baslik):
     baslik = temizle(baslik)
@@ -308,7 +306,7 @@ def haberleri_tara():
 🔗 Haber Linki:
 {link}
 """
-                if haber_anahtari(baslik) in SENT_TITLES:
+                if haber_anahtari(title) in SENT_TITLES:
                     continue 
     
                 if telegram_gonder(mesaj):
