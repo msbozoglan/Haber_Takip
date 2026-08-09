@@ -156,7 +156,10 @@ def web_sitesi_tara(isim, url):
 
                 metin = baslik + " " + aciklama 
 
-                kelime = eslesen_kelime(metin)
+                if isim == "Antalya Manşet":
+                    kelime = antalya_manset_eslesen_kelime(baslik, aciklama)
+                else:
+                    kelime = eslesen_kelime(metin)
 
                 if not kelime:
                     continue
