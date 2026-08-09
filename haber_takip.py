@@ -41,7 +41,8 @@ def google_kaynaklari_olustur():
         "antalyabulten.com",
         "antalyasonhaber.com",
         "akdenizgercek.com.tr",
-        "yenialanya.com"
+        "yenialanya.com", 
+        "antalyamanset.com"
     ]
 
     for site in siteler:
