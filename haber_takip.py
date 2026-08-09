@@ -14,6 +14,7 @@ CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 SENT_FILE = "sent_links.txt"
 TITLE_FILE = "sent_titles.txt"
+EVENT_FILE = "sent_events.txt"
 
 MAX_HABER = 20
 MAX_YAS_SAAT = 72
@@ -74,6 +75,12 @@ if os.path.exists(TITLE_FILE):
         SENT_TITLES = set(i.strip().lower() for i in f if i.strip())
 else:
     SENT_TITLES = set()
+
+if os.path.exists(EVENT_FILE):
+    with open(EVENT_FILE, "r", encoding="utf-8") as f:
+        SENT_EVENTS = set(i.strip() for i in f if i.strip())
+else:
+    SENT_EVENTS = set()
 
 
 def telegram_gonder(mesaj):
@@ -229,6 +236,24 @@ def haber_anahtari(baslik):
     baslik = re.sub(r'[^a-z0-9 ]', ' ', baslik)
     baslik = re.sub(r'\s+', ' ', baslik).strip()
     return baslik
+
+def olay_anahtari(baslik):
+    baslik = temizle(baslik)
+
+    # Aynı olayın farklı başlıklarla gelmesini engellemek için
+    if "200 bin euro" in baslik or "200 bin euroluk" in baslik:
+        return "antalya sgk 200 bin euro rusvet kumpas"
+
+    if "sgk" in baslik and "rusvet" in baslik and "antalyaspor" in baslik:
+        return "antalya sgk rusvet antalyaspor"
+
+    if "sgk" in baslik and "rusvet" in baslik and "tanriover" in baslik:
+        return "antalya sgk rusvet tanriover"
+
+    if "sgk" in baslik and "rusvet" in baslik and "kumpas" in baslik:
+        return "antalya sgk rusvet kumpas"
+
+    return haber_anahtari(baslik)
 
 def eslesen_kelime(text):
     text = temizle(text)
