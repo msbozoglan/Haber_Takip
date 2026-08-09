@@ -222,6 +222,62 @@ def eslesen_kelime(text):
 
     return None
 
+def antalya_manset_eslesen_kelime(baslik, metin):
+    baslik = temizle(baslik)
+    metin = temizle(metin)
+
+    # Önce mevcut anahtar kelimeleri kontrol et
+    for kelime in KEYWORDS:
+        k = temizle(kelime)
+
+        if k in baslik or k in metin:
+            return kelime
+
+    # Antalya Manşet için özel bağlam kontrolü
+    sgk_kelimeleri = [
+        "sgk",
+        "sosyal güvenlik kurumu",
+        "sosyal güvenlik",
+        "sgk il müdürü",
+        "sgk müdürü"
+    ]
+
+    kisi_kelimeleri = [
+        "mehmet tanrıöver",
+        "tanrıöver",
+        "ali karaçallı",
+        "ali karaçalı",
+        "ali karacalı",
+        "ali karacallı"
+    ]
+
+    olay_kelimeleri = [
+        "rüşvet",
+        "rüşvet soruşturması",
+        "rüşvet davası",
+        "rüşvet iddiası",
+        "rüşvet operasyonu",
+        "kumpas",
+        "soruşturma",
+        "iddianame",
+        "200 bin euro",
+        "200 bin euroluk"
+    ]
+
+    sgk_var = any(k in metin for k in sgk_kelimeleri)
+    kisi_var = any(k in metin for k in kisi_kelimeleri)
+    olay_var = any(k in metin for k in olay_kelimeleri)
+
+    # SGK + kişi
+    if sgk_var and kisi_var:
+        return "SGK / ilgili kişi"
+
+    # SGK + rüşvet/soruşturma bağlantısı
+    if sgk_var and olay_var:
+        return "SGK / ilgili soruşturma"
+
+    return None
+
 
 def haber_yeni_mi(published):
     try:
