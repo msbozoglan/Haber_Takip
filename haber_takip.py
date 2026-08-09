@@ -156,6 +156,20 @@ def web_sitesi_tara(isim, url):
 
                 metin = baslik + " " + aciklama 
 
+                # Aynı URL farklı şekilde gelirse tekrar gönderme
+                link_normal = link.rstrip("/").lower()
+
+                if any(x.rstrip("/").lower() == link_normal for x in SENT):
+                    print("⛔ Daha önce gönderilmiş URL:", baslik)
+                    continue
+
+                # Aynı başlık farklı URL ile gelirse tekrar gönderme
+                baslik_anahtari = haber_anahtari(baslik)
+
+                if baslik_anahtari in SENT_TITLES:
+                    print("⛔ Daha önce gönderilmiş başlık:", baslik)
+                    continue
+
                 if isim == "Antalya Manşet":
                     kelime = antalya_manset_eslesen_kelime(baslik, aciklama)
                 else:
@@ -181,7 +195,7 @@ def web_sitesi_tara(isim, url):
                 if telegram_gonder(mesaj):
                     yeni += 1
                     print("Telegram'a gönderildi:", baslik)
-                    SENT.add(link)
+                    SENT.add(link.rstrip("/"))
                     SENT_TITLES.add(haber_anahtari(baslik))
                     bulunan += 1
 
