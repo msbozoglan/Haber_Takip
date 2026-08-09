@@ -357,6 +357,7 @@ def haberleri_tara():
     web_sitesi_tara("Antalya Hürses", "https://www.antalyahurses.com")
     web_sitesi_tara("Antalya Bülten", "https://www.antalyabulten.com")
     web_sitesi_tara("Antalyam", "https://www.antalyam.com")
+    web_sitesi_tara("Antalya Manşet", "https://antalyamanset.com")
     
     print(f"\nToplam {yeni} yeni haber gönderildi.")
 
