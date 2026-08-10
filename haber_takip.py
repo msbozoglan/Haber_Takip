@@ -177,6 +177,13 @@ def web_sitesi_tara(isim, url):
                     print("⛔ Daha önce gönderilmiş başlık:", baslik)
                     continue
 
+                # Aynı olay farklı başlık veya URL ile gelirse tekrar gönderme
+                olay = olay_anahtari(baslik)
+
+                if olay in SENT_EVENTS:
+                    print("⛔ Daha önce gönderilmiş olay:", baslik)
+                    continue
+
                 if isim == "Antalya Manşet":
                     kelime = antalya_manset_eslesen_kelime(baslik, aciklama)
                 else:
@@ -202,8 +209,11 @@ def web_sitesi_tara(isim, url):
                 if telegram_gonder(mesaj):
                     yeni += 1
                     print("Telegram'a gönderildi:", baslik)
+
                     SENT.add(link.rstrip("/"))
-                    SENT_TITLES.add(haber_anahtari(baslik))
+                SENT_TITLES.add(haber_anahtari(baslik))
+                    SENT_EVENTS.add(olay)
+
                     bulunan += 1
 
             except Exception:
@@ -440,6 +450,11 @@ def haberleri_tara():
     with open(TITLE_FILE, "w", encoding="utf-8") as f:
         for title in sorted(SENT_TITLES):
             f.write(title + "\n")
+
+    with open(EVENT_FILE, "w", encoding="utf-8") as f:
+        for event in sorted(SENT_EVENTS):
+            f.write(event + "\n")
+            
     print("\nWeb siteleri taranıyor...\n")
 
     web_sitesi_tara("Lider Gazete", "https://www.lidergazete.com")
