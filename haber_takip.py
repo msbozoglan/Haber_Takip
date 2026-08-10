@@ -220,6 +220,8 @@ def web_sitesi_tara(isim, url):
                     SENT_TITLES.add(haber_anahtari(baslik))
                     SENT_EVENTS.add(olay)
 
+                    print("✅ Olay kaydedildi:", olay)
+
                     bulunan += 1
 
             except Exception:
