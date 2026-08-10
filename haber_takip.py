@@ -173,6 +173,8 @@ def web_sitesi_tara(isim, url):
                 # Aynı başlık farklı URL ile gelirse tekrar gönderme
                 baslik_anahtari = haber_anahtari(baslik)
 
+                olay = olay_anahtari(baslik)
+
                 if baslik_anahtari in SENT_TITLES:
                     print("⛔ Daha önce gönderilmiş başlık:", baslik)
                     continue
