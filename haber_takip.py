@@ -458,8 +458,8 @@ def haberleri_tara():
             f.write(title + "\n")
 
     with open(EVENT_FILE, "w", encoding="utf-8") as f:
-        for event in sorted(SENT_EVENTS):
-            f.write(event + "\n")
+        for olay in sorted(SENT_EVENTS):
+            f.write(olay + "\n")
             
     print("\nWeb siteleri taranıyor...\n")
 
