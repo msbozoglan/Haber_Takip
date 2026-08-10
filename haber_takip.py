@@ -209,10 +209,11 @@ def web_sitesi_tara(isim, url):
                 if telegram_gonder(mesaj):
                     yeni += 1
                     print("Telegram'a gönderildi:", baslik)
+
                     SENT.add(link.rstrip("/"))
-               
                 SENT_TITLES.add(haber_anahtari(baslik))
                     SENT_EVENTS.add(olay)
+
                     bulunan += 1
 
             except Exception:
