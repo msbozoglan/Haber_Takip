@@ -175,6 +175,10 @@ def web_sitesi_tara(isim, url):
 
                 olay = olay_anahtari(baslik)
 
+                if olay in SENT_EVENTS:
+                    print("⛔ Daha önce gönderilmiş olay:", baslik)
+                    continue
+
                 if baslik_anahtari in SENT_TITLES:
                     print("⛔ Daha önce gönderilmiş başlık:", baslik)
                     continue
