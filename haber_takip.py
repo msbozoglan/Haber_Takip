@@ -100,7 +100,6 @@ def telegram_gonder(mesaj):
     return r.status_code == 200
 
 def web_sitesi_tara(isim, url):
-    global yeni
 
     print(f"Web kontrol: {isim}")
 
@@ -207,7 +206,6 @@ def web_sitesi_tara(isim, url):
                     continue
 
                 if telegram_gonder(mesaj):
-                    yeni += 1
                     print("Telegram'a gönderildi:", baslik)
 
                     SENT.add(link.rstrip("/"))
@@ -452,10 +450,6 @@ def haberleri_tara():
     with open(TITLE_FILE, "w", encoding="utf-8") as f:
         for title in sorted(SENT_TITLES):
             f.write(title + "\n")
-
-    with open(EVENT_FILE, "w", encoding="utf-8") as f:
-        for olay in sorted(SENT_EVENTS):
-            f.write(olay + "\n")
             
     print("\nWeb siteleri taranıyor...\n")
 
@@ -475,6 +469,12 @@ def haberleri_tara():
     web_sitesi_tara("Antalya Manşet", "https://antalyamanset.com")
     
     print(f"\nToplam {yeni} yeni haber gönderildi.")
+
+    with open(EVENT_FILE, "w", encoding="utf-8") as f:
+        for olay in sorted(SENT_EVENTS):
+            f.write(olay + "\n")
+
+    print(f"✅ {len(SENT_EVENTS)} olay sent_events.txt dosyasına kaydedildi.")
 
 if __name__ == "__main__":
 
