@@ -30,7 +30,9 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python haber_takip.py
 
-      - name: Save sent links
+      - name: Save sent data
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Update sent links
+          commit_message: Update sent links and events
+          file_pattern: "sent_links.txt sent_titles.txt sent_events.txt"
+           
