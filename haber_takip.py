@@ -171,26 +171,26 @@ def web_sitesi_tara(isim, url):
                     continue
 
                 # Haber başlığı ve olay anahtarı oluştur
-baslik_anahtari = haber_anahtari(baslik)
-olay = olay_anahtari(baslik)
+                baslik_anahtari = haber_anahtari(baslik)
+                olay = olay_anahtari(baslik)
 
-# Aynı olay farklı URL veya farklı başlıkla gelirse tekrar gönderme
-if olay in SENT_EVENTS:
-    print("⛔ Daha önce gönderilmiş olay:", baslik)
-    continue
+                # Aynı olay farklı URL veya farklı başlıkla gelirse tekrar gönderme
+                if olay in SENT_EVENTS:
+                    print("⛔ Daha önce gönderilmiş olay:", baslik)
+                    continue
 
-# Aynı başlık farklı URL ile gelirse tekrar gönderme
-if baslik_anahtari in SENT_TITLES:
-    print("⛔ Daha önce gönderilmiş başlık:", baslik)
-    continue
+                # Aynı başlık farklı URL ile gelirse tekrar gönderme
+                if baslik_anahtari in SENT_TITLES:
+                    print("⛔ Daha önce gönderilmiş başlık:", baslik)
+                    continue
 
-if isim == "Antalya Manşet":
-    kelime = antalya_manset_eslesen_kelime(baslik, aciklama)
-else:
-    kelime = eslesen_kelime(metin)
+                if isim == "Antalya Manşet":
+                    kelime = antalya_manset_eslesen_kelime(baslik, aciklama)
+                else:
+                    kelime = eslesen_kelime(metin)
 
-if not kelime:
-    continue
+                if not kelime:
+                    continue
 
                 mesaj=f"""📰 WEB HABERİ
 
